@@ -1,12 +1,22 @@
 <script setup>
 import { onMounted } from "vue";
 import { useStore } from "vuex";
+import socketclient from "socket.io-client";
 import Messages from "./components/Messages.vue";
 import Menu from "./components/Menu.vue";
 
 const store = useStore();
 
-const counter = store.state.count;
+const socket = socketclient("ws://localhost:8080");
+
+socket.on("connect", () => {
+  console.log("socket connected", socket.id);
+});
+
+socket.on("message:new", (message) => {
+  console.log({ message });
+  store.commit("newMessage", message);
+});
 </script>
 
 <template>

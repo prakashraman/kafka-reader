@@ -1,23 +1,43 @@
-import restify from "restify";
-import { Server } from "socket.io";
+import express from "express";
+import cors from "cors";
 
-const server = restify.createServer();
-const io = new Server();
+import { IO } from "./lib/socket";
+import { logger } from "./lib/init";
 
-io.listen(server.server);
+const app = express();
 
-server.get("/", (_req, res, _next) => {
-  res.send(`hello: ${new Date()}`);
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
+
+app.get("/", (_req, res, _next) => {
+  res.json({ success: true, now: new Date() });
 });
 
-io.sockets.on("connection", (socket) => {
-  console.log("sockets on");
+app.post("/new", (_req, res, _next) => {
+  IO.local.emit("message:new", new Date().toString());
+  res.json({
+    success: true,
+    message: "broadcasted message on all client connections.",
+  });
 });
 
-io.on("connection", (socket) => {
-  console.log("new connection found!");
+/**
+ * Starts the REST server
+ */
+const server = app.listen(8080, function () {
+  logger.info("starting server...", { name: app.name, port: 8080 });
 });
 
-server.listen(8080, function () {
-  console.log("%s listening at %s", server.name, server.url);
+/**
+ * Starts the WS
+ */
+IO.listen(server, {
+  cors: {
+    origin: "*",
+    credentials: true,
+  },
 });

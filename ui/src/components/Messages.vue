@@ -24,19 +24,21 @@ const tableData = [
 </script>
 
 <template>
-  <el-breadcrumb separator="/">
-    <el-breadcrumb-item>Topic</el-breadcrumb-item>
-    <el-breadcrumb-item>cluster.messages.0</el-breadcrumb-item>
-  </el-breadcrumb>
+  <div>
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item>Topic</el-breadcrumb-item>
+      <el-breadcrumb-item>cluster.messages.0</el-breadcrumb-item>
+    </el-breadcrumb>
 
-  <el-divider></el-divider>
+    <el-divider></el-divider>
 
-  <el-table :data="tableData" border>
-    <el-table-column prop="date" label="Time" width="200" />
-    <el-table-column prop="name" label="Partition" width="100" />
-    <el-table-column prop="name" label="Message" />
-    <el-table-column prop="name" label="Offset" width="100" />
-  </el-table>
+    <el-table :data="tableData" border>
+      <el-table-column prop="date" label="Time" width="200" />
+      <el-table-column prop="name" label="Partition" width="100" />
+      <el-table-column prop="name" label="Message" />
+      <el-table-column prop="name" label="Offset" width="100" />
+    </el-table>
+  </div>
 </template>
 
 <style lang="sass"></style>

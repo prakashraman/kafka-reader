@@ -1,21 +1,12 @@
 import { createApp } from "vue";
 import { createStore } from "vuex";
 import ElementPlus from "element-plus";
-import "element-plus/dist/index.css";
-import App from "./App.vue";
+import store from "./store";
+import socketclient from "socket.io-client";
 
-const store = createStore({
-  state() {
-    return {
-      count: 0,
-    };
-  },
-  mutations: {
-    increment(state) {
-      state.count++;
-    },
-  },
-});
+import "element-plus/dist/index.css";
+
+import App from "./App.vue";
 
 const app = createApp(App);
 
