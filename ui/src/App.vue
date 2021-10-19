@@ -1,21 +1,21 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { useStore } from "vuex";
-import socketclient from "socket.io-client";
-import Messages from "./components/Messages.vue";
+import { close, connect } from "./lib/socket";
+
 import Menu from "./components/Menu.vue";
+import Messages from "./components/Messages.vue";
 
 const store = useStore();
 
-const socket = socketclient("ws://localhost:8080");
-
-socket.on("connect", () => {
-  console.log("socket connected", socket.id);
+onMounted(() => {
+  console.log("mounted");
+  connect(store);
 });
 
-socket.on("message:new", (message) => {
-  console.log({ message });
-  store.commit("newMessage", message);
+onUnmounted(() => {
+  console.log("unmounted");
+  close();
 });
 </script>
 

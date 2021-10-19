@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { useStore } from "vuex";
 import _ from "lodash";
 
-const data = ref([1, 2, 3]);
+const store = useStore();
 
 const messages = computed(() => {
-  return _.map(data.value, (item) => ({
+  return _.map(store.state.messages, (item) => ({
     date: new Date(),
     name: item,
   }));

@@ -12,8 +12,10 @@ export default createStore<Store>({
   },
 
   mutations: {
-    newMessage(state, message) {
+    newMessage(state, { message }) {
       state.messages = [message, ...state.messages];
     },
   },
 });
+
+export { Store };

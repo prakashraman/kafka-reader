@@ -1,3 +1,9 @@
+/**
+ * Socket implementation
+ *
+ * @module lib/socket
+ */
+
 import { Server } from "socket.io";
 import { logger } from "./init";
 

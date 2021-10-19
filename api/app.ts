@@ -9,6 +9,9 @@ import cors from "cors";
 import { IO } from "./lib/socket";
 import { logger } from "./lib/init";
 
+/** @constant {number} Port */
+const PORT = 8081;
+
 /**
  * Express app
  * @const
@@ -24,7 +27,6 @@ app.use(
 
 /**
  * Index
- * @memberof routes
  * @function
  * @name index
  */
@@ -34,9 +36,7 @@ app.get("/", (_req, res, _next) => {
 
 /**
  * Broadcast a debug message
- * @memberof debug
  * @function
- * @name debug/message
  */
 app.post("/debug/message", (_req, res, _next) => {
   IO.local.emit("message:new", new Date().toString());
@@ -48,10 +48,10 @@ app.post("/debug/message", (_req, res, _next) => {
 
 /**
  * Starts the REST server
- * @const
+ * @const {Server}
  */
-const server = app.listen(8080, function () {
-  logger.info("starting server...", { name: app.name, port: 8080 });
+const server = app.listen(PORT, function () {
+  logger.info("starting server...", { name: app.name, port: PORT });
 });
 
 /**
@@ -60,6 +60,6 @@ const server = app.listen(8080, function () {
 IO.listen(server, {
   cors: {
     origin: "*",
-    credentials: true,
+    // credentials: true,
   },
 });
