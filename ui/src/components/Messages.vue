@@ -1,26 +1,15 @@
 <script setup lang="ts">
-const tableData = [
-  {
-    date: "2016-05-03",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
-  },
-  {
-    date: "2016-05-02",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
-  },
-  {
-    date: "2016-05-04",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
-  },
-  {
-    date: "2016-05-01",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
-  },
-];
+import { computed, ref } from "vue";
+import _ from "lodash";
+
+const data = ref([1, 2, 3]);
+
+const messages = computed(() => {
+  return _.map(data.value, (item) => ({
+    date: new Date(),
+    name: item,
+  }));
+});
 </script>
 
 <template>
@@ -32,7 +21,7 @@ const tableData = [
 
     <el-divider></el-divider>
 
-    <el-table :data="tableData" border>
+    <el-table :data="messages" border>
       <el-table-column prop="date" label="Time" width="200" />
       <el-table-column prop="name" label="Partition" width="100" />
       <el-table-column prop="name" label="Message" />
